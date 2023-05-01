@@ -16,6 +16,9 @@ main {
 h1 {
   text-align: center;
 }
+#limit {
+  margin: 1rem 0;
+}
 #limit ul {
   list-style: none;
   padding-left: 0;
