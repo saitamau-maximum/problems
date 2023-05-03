@@ -162,7 +162,7 @@ rime pack <problem-name>
 Admin の「Executables」から「Add new executable」で「Type: Compare」で、`build`, `compare.cc` の 2 ファイルからなる zip を入れる。
 デフォルトの各ファイルは `/templates/compare` にある。
 `testlib.h` を入れたいなら [cn-xcpc-tools/testlib-for-domjudge](https://github.com/cn-xcpc-tools/testlib-for-domjudge/blob/master/testlib.h) を使うといいかも。
-`/templates/compare/testlib.h` に置いときます。
+`/templates/compare/testlib.h` に置いとくので、もし必要だったらこっちの `testlib.h` を zip に含める。 (`/common/testlib.h` は含めないようにする)
 
 問題文もアップされないので注意。
 問題詳細ページから PDF をアップする。
