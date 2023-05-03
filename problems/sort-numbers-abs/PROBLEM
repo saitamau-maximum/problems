@@ -1,0 +1,9 @@
+# -*- coding: utf-8; mode: python -*-
+
+pid='sort-numbers-abs'
+
+problem(
+  time_limit=1.0,
+  id=pid,
+  title="Sort Numbers in Decending Order by Absolute Value",
+)
