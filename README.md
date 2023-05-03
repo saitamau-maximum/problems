@@ -40,7 +40,7 @@
 
 ### インストール
 
-入力生成器として [Rime](https://github.com/icpc-jag/rime) を用いるため、インストールする
+入力生成器として [Rime](https://github.com/icpc-jag/rime) を用いるため、インストールする。venv などを使うと良い。
 
 ```bash
 pip install rime
@@ -56,8 +56,10 @@ pip install -r requirements.txt
 
 ### 問題作り
 
+ルートディレクトリで実行
+
 ```bash
-rime add <rootdir> problem <problem-name>
+rime add problems problem <problem-name>
 ```
 
 `PROBLEM` ファイルの内容 (一部)
@@ -82,6 +84,8 @@ yarn start
 
 ### 想定解や嘘解法など追加
 
+`/problems` 内で実行
+
 ```bash
 rime add <problem-name> solution <sol-name>
 ```
@@ -99,13 +103,25 @@ rime add <problem-name> solution <sol-name>
 `SOLUTION` ファイルの内容
 
 - cpp 使うなら `cxx_solution` をコメントアウトし、`main.cc` ファイルを作成する
+- もし AC 以外の想定なら引数として `challenge_cases=[]` を追加する
 - スコアは `expected_score` で設定。まあ一律で 1 でいいと思う
 
 ### テストケース追加
 
+`/problems` 内で実行
+
 ```bash
 rime add <parent_problem_dir_name> testset tests
 ```
+
+サンプルは `00_sampleX.in` という名前で `tests` ディレクトリに入れる。
+なお、 `X` は 0, 1, 2, ... というように連番にすること。(0-indexed)
+
+ランダムケース (`generator.cc` で作ったもの) は `10_randomX.in` という名前にする。
+`generator.cc` には違う Seed 値をコマンドライン引数として与えて、異なるケースを生成するようにする。
+
+コーナーケースは `20_cornerX_<何のコーナーか>.in` という名前にする。
+どっちも最大 10 個まであれば十分だと思う。
 
 `TESTSET` ファイルの内容
 
@@ -117,6 +133,8 @@ rime add <parent_problem_dir_name> testset tests
 
 ### ビルドとテスト
 
+`/problems` 内で実行
+
 ```bash
 rime build <problem-name>
 ```
@@ -124,3 +142,35 @@ rime build <problem-name>
 ```bash
 rime test <problem-name>
 ```
+
+### zip ファイル生成
+
+`/problems` 内で実行
+
+```bash
+rime pack <problem-name>
+```
+
+`/problems/<problem-name>/rime-out/domjudge/<problem-name>.zip` が生成されるはず
+
+これを DOMJudge の「Import Problems」の「Import Archive」からアップロードする。
+
+ミスったら問題詳細の一番下「Problem Archive」からアップする。このとき「Delete old data」にチェックしたほうがいいと思う。
+
+ジャッジはアップされないので注意。
+ただ比較するだけのジャッジなら問題ないが、インタラクティブなど特殊な場合は、ジャッジをアップする必要がある。
+Admin の「Executables」から「Add new executable」で「Type: Compare」で、`build`, `compare.cc` の 2 ファイルからなる zip を入れる。
+デフォルトの各ファイルは `/templates/compare` にある。
+`testlib.h` を入れたいなら [cn-xcpc-tools/testlib-for-domjudge](https://github.com/cn-xcpc-tools/testlib-for-domjudge/blob/master/testlib.h) を使うといいかも。
+`/templates/compare/testlib.h` に置いときます。
+
+問題文もアップされないので注意。
+問題詳細ページから PDF をアップする。
+
+## testlib.h の使い方
+
+Codeforces の開発者 Mike Mirzayanov さんが作った、テストケースとかにかかわるライブラリ。
+<https://github.com/MikeMirzayanov/testlib>
+
+なんか「使い方が最も簡単にわかる方法は、ソースコードを見ろ」らしいので、見てください。
+(`/checkers`, `/validators`, `/generators`, `/interactors` のファイルたちは使い方の例っぽい)
