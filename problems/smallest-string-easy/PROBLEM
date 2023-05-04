@@ -1,0 +1,9 @@
+# -*- coding: utf-8; mode: python -*-
+
+pid='smallest-string-easy'
+
+problem(
+  time_limit=1.0,
+  id=pid,
+  title="Smallest String in Lexicographic Order (easy)"
+)
