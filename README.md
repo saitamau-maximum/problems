@@ -54,12 +54,12 @@ pip install -r requirements.txt
 
 なお、Windows 上で動かす場合不安定らしいので注意
 
+Rime コマンドは `/problems` 内で実行する
+
 ### 問題作り
 
-ルートディレクトリで実行
-
 ```bash
-rime add problems problem <problem-name>
+rime add . problem <problem-name>
 ```
 
 `PROBLEM` ファイルの内容 (一部)
@@ -84,8 +84,6 @@ yarn start
 
 ### 想定解や嘘解法など追加
 
-`/problems` 内で実行
-
 ```bash
 rime add <problem-name> solution <sol-name>
 ```
@@ -108,8 +106,6 @@ rime add <problem-name> solution <sol-name>
 
 ### テストケース追加
 
-`/problems` 内で実行
-
 ```bash
 rime add <parent_problem_dir_name> testset tests
 ```
@@ -119,6 +115,10 @@ rime add <parent_problem_dir_name> testset tests
 
 ランダムケース (`generator.cc` で作ったもの) は `10_randomX.in` という名前にする。
 `generator.cc` には違う Seed 値をコマンドライン引数として与えて、異なるケースを生成するようにする。
+
+メモ(`generator.cc` のコンパイル): `g++ -std=c++17 -O2 -Wall -I ../../../common -o a.out generator.cc`
+
+メモ(テストの生成): `a(){ ./a.out $1 > $1; }` として `a <出力先ファイル>`
 
 コーナーケースは `20_cornerX_<何のコーナーか>.in` という名前にする。
 どっちも最大 10 個まであれば十分だと思う。
@@ -133,8 +133,6 @@ rime add <parent_problem_dir_name> testset tests
 
 ### ビルドとテスト
 
-`/problems` 内で実行
-
 ```bash
 rime build <problem-name>
 ```
@@ -144,8 +142,6 @@ rime test <problem-name>
 ```
 
 ### zip ファイル生成
-
-`/problems` 内で実行
 
 ```bash
 rime pack <problem-name>
